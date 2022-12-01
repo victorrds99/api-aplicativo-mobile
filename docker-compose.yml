@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  estoque.api:
+    container_name: banco-postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+  api-aplicativo-mobile:
+    container_name: api-aplicativo-mobile
+    image: quarkus/api-aplicativo-mobile-jvm
+    entrypoint: /deployments/run-java.sh
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - estoque.api
+
+  
